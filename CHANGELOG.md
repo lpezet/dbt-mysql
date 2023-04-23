@@ -16,8 +16,8 @@
 - [@the-timoye](https://github.com/the-timoye) ([#116](https://github.com/dbeatty10/dbt-mysql/pull/116))
 - [@shiyuhang0](https://github.com/shiyuhang0) ([#109](https://github.com/dbeatty10/dbt-mysql/pull/109))
 
-## dbt-mysql 1.4.6 (April 21, 2023)
-- Support dbt v1.4 ([#TODO](TODO))
+## dbt-mysql-lpezet 1.4.6 (April 23, 2023)
+- Support dbt v1.4
 
 ## dbt-mysql 1.0.0 (March 13, 2022)
 - Support dbt v1.0 ([#90](https://github.com/dbeatty10/dbt-mysql/pull/90))
@@ -40,6 +40,7 @@
 - Support dbt v0.19.2 ([#81](https://github.com/dbeatty10/dbt-mysql/pull/81))
 
 ## dbt-mysql 0.19.1 (March 6, 2022)
+
 ### Under the hood
 - Integration tests for MySQL 5.7 ([#70](https://github.com/dbeatty10/dbt-mysql/issues/70), [#71](https://github.com/dbeatty10/dbt-mysql/pull/71))
 - Integration tests for MariaDB 10.5 ([#72](https://github.com/dbeatty10/dbt-mysql/pull/72))
