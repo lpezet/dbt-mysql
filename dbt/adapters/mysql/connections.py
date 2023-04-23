@@ -2,7 +2,9 @@ from contextlib import contextmanager
 
 import mysql.connector
 
-import dbt.exceptions
+from dbt.exceptions import (
+    DbtDatabaseError, DbtRuntimeError, FailedToConnectError
+)
 from dbt.adapters.sql import SQLConnectionManager
 from dbt.contracts.connection import AdapterResponse
 from dbt.contracts.connection import Connection
@@ -39,7 +41,7 @@ class MySQLCredentials(Credentials):
     def __post_init__(self):
         # mysql classifies database and schema as the same thing
         if self.database is not None and self.database != self.schema:
-            raise dbt.exceptions.DbtRuntimeError(
+            raise DbtRuntimeError(
                 f"    schema: {self.schema} \n"
                 f"    database: {self.database} \n"
                 f"On MySQL, database must be omitted or have the same value as"
@@ -113,7 +115,7 @@ class MySQLConnectionManager(SQLConnectionManager):
                 connection.handle = None
                 connection.state = "fail"
 
-                raise dbt.exceptions.FailedToConnectError(str(e))
+                raise FailedToConnectError(str(e))
 
         return connection
 
@@ -138,19 +140,19 @@ class MySQLConnectionManager(SQLConnectionManager):
                 logger.debug("Failed to release connection!")
                 pass
 
-            raise dbt.exceptions.DatabaseException(str(e).strip()) from e
+            raise DbtDatabaseError(str(e).strip()) from e
 
         except Exception as e:
             logger.debug("Error running SQL: {}", sql)
             logger.debug("Rolling back transaction.")
             self.rollback_if_open()
-            if isinstance(e, dbt.exceptions.DbtRuntimeError):
+            if isinstance(e, DbtRuntimeError):
                 # during a sql query, an internal to dbt exception was raised.
                 # this sounds a lot like a signal handler and probably has
                 # useful information, so raise it without modification.
                 raise
 
-            raise dbt.exceptions.DbtRuntimeError(e) from e
+            raise DbtRuntimeError(e) from e
 
     @classmethod
     def get_response(cls, cursor) -> AdapterResponse:

@@ -77,7 +77,7 @@ def _core_version(plugin_version: str = _plugin_version()) -> str:
 
 
 setup(
-    name="@lpezet/dbt-mysql",
+    name="dbt-mysql-lpezet",
     version=_plugin_version(),
     description="A MySQL adapter for dbt [by https://github.com/lpezet]",
     long_description=README.read_text(),
