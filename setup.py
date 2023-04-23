@@ -12,7 +12,8 @@ try:
 except ImportError:
     print("Error: dbt requires setuptools v40.1.0 or higher.")
     print(
-        'Please upgrade setuptools with "pip install --upgrade setuptools" and try again'
+        'Please upgrade setuptools with '
+        '"pip install --upgrade setuptools" and try again'
     )
     sys.exit(1)
 
@@ -25,7 +26,8 @@ from setuptools import setup
 README = Path(__file__).parent / "README.md"
 
 
-# used for this adapter's version and in determining the compatible dbt-core version
+# used for this adapter's version and in determining
+# the compatible dbt-core version
 VERSION = Path(__file__).parent / "dbt/adapters/mysql/__version__.py"
 
 
@@ -53,15 +55,18 @@ def _core_patch(plugin_patch: str):
     return "0"
 
 
-# require a compatible minor version (~=) and prerelease if this is a prerelease
+# require a compatible minor version (~=)
+# and prerelease if this is a prerelease
 def _core_version(plugin_version: str = _plugin_version()) -> str:
     """
     Determine the compatible dbt-core version give this plugin's version.
 
-    We assume that the plugin must agree with `dbt-core` down to the minor version.
+    We assume that the plugin must agree with `dbt-core`
+    down to the minor version.
 
     Args:
-        plugin_version: the version of this plugin, this is an argument in case we ever want to unit test this
+        plugin_version: the version of this plugin, this is an argument
+        in case we ever want to unit test this
     """
     try:
         major, minor, plugin_patch = plugin_version.split(".")
@@ -72,9 +77,9 @@ def _core_version(plugin_version: str = _plugin_version()) -> str:
 
 
 setup(
-    name="dbt-mysql",
+    name="@lpezet/dbt-mysql",
     version=_plugin_version(),
-    description="The MySQL adapter plugin for dbt",
+    description="A MySQL adapter for dbt [by https://github.com/lpezet]",
     long_description=README.read_text(),
     long_description_content_type="text/markdown",
     author="Doug Beatty",
